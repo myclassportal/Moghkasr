@@ -1463,10 +1463,11 @@
         authenticatePortalStudent();
 
         if ('serviceWorker' in navigator) {
+            const hadExistingController = !!navigator.serviceWorker.controller;
             navigator.serviceWorker.register('sw.js');
             let refreshing = false;
             navigator.serviceWorker.addEventListener('controllerchange', () => {
-                if (!refreshing) {
+                if (!refreshing && hadExistingController) {
                     window.location.reload();
                     refreshing = true;
                 }
