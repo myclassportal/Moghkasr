@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>مقایسه‌ی کسرها - دبستان معاد خرگوشی</title>
+    <title>مقایسه‌ی کسرها</title>
     <script src="supabase.js" defer></script>
     <script src="game-db.js" defer></script>
     <style>
@@ -475,19 +475,22 @@
         .report-header-text {
             color: #2980b9;
             margin-top: 0;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             border-bottom: 2px solid #eee;
             padding-bottom: 5px;
-            font-size: 1rem;
+            font-size: 1.1rem;
+            text-align: center;
         }
         
         .report-box {
             width: 100%;
             border: 1px solid #ddd;
             border-radius: 10px;
-            padding: 10px;
+            padding: 12px;
             margin-bottom: 10px;
             flex-shrink: 0;
+            text-align: right;
+            direction: rtl;
         }
 
         .report-box p {
@@ -499,11 +502,12 @@
             background: #f8f9fa;
             border: 1px solid #eee;
             border-radius: 8px;
-            padding: 5px;
+            padding: 8px;
             margin-top: 5px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: #555;
-            direction: ltr; 
+            direction: rtl; 
+            line-height: 1.6;
         }
 
     </style>
@@ -529,7 +533,7 @@
         </div>
 
         <div class="screen" id="screen-register">
-            <h2 id="portal-school-title" style="color: #7f8c8d; font-size: 1.2rem; font-weight: bold; margin-bottom: 5px;">دبستان معاد خرگوشی</h2>
+            <h2 id="portal-school-title" style="color: #7f8c8d; font-size: 1.2rem; font-weight: bold; margin-bottom: 5px;">---</h2>
             <h1 style="color: #3498db; font-size: 1.8rem; font-weight: bold; margin-bottom: 15px;">مقایسه‌ی کسرها</h1>
             
             <div id="portal-welcome-section" style="width: 100%;">
@@ -549,18 +553,18 @@
                   <span id="portal-prev-stars" style="font-weight:bold; color:#f39c12;">۰ ⭐</span>
                 </div>
                 <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; color:#2980b9; border-top:1px dashed #3498db; padding-top:8px; margin-top:5px;">
-                  <span>🎯 ستاره مورد نیاز تکلیف:</span>
+                  <span>🎯 ستاره‌ی مورد نیاز تکلیف:</span>
                   <span id="portal-req-stars">۰ ⭐</span>
                 </div>
               </div>
             </div>
-            <button id="startGameBtn" style="background:#27ae60; color:white; width: 100%;" onclick="registerUser()">شروع بازی تکلیف 🎮</button>
+            <button id="startGameBtn" style="background:#27ae60; color:white; width: 100%;" onclick="registerUser()">شروع بازیِ تکلیف 🎮</button>
             
             <div id="portal-error-section" style="display:none; text-align:center; padding:20px; max-width: 450px; margin: 12px auto; background: white; border-radius: 12px; box-shadow:0 6px 18px rgba(0,0,0,0.12); width:100%;">
                 <div style="font-size:2.5rem; margin-bottom:10px;">⚠️</div>
-                <h3 id="portal-error-title" style="color:#d32f2f; margin-bottom:8px; font-weight:bold; font-size:15pt;">خطا در اتصال به پرتال کلاس</h3>
-                <p id="portal-error-desc" style="color:#555; font-size:12pt; margin-bottom:15px; line-height:1.6;">جهت بارگذاری مشخصات و تکالیفت، اتصال به اینترنت الزامی است. لطفا شبکه‌ات را بررسی کن و مجدداً تلاش کن.</p>
-                <button class="btn-start-new" style="background:#3498db; color: white; padding: 10px 20px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer;" onclick="retryAuthentication()">🔄 تلاش مجدد برای اتصال</button>
+                <h3 id="portal-error-title" style="color:#d32f2f; margin-bottom:8px; font-weight:bold; font-size:15pt;">مشکل در اتصال به کلاس!</h3>
+                <p id="portal-error-desc" style="color:#555; font-size:12pt; margin-bottom:15px; line-height:1.6;">برای اینکه بتونی تکالیفت رو ببینی و بازی کنی، باید به اینترنت وصل باشی. لطفاً شبکه‌ی اینترنتت رو بررسی کن و دوباره دکمه‌ی زیر رو بزن.</p>
+                <button class="btn-start-new" style="background:#3498db; color: white; padding: 10px 20px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer;" onclick="retryAuthentication()">🔄 تلاش دوباره برای اتصال</button>
             </div>
         </div>
 
@@ -570,25 +574,25 @@
             <div style="background: #e8f4f8; border: 2px dashed #3498db; border-radius: 12px; padding: 20px; margin-bottom: 25px; line-height: 1.8; text-align: justify; direction: rtl;">
                 <span style="font-size: 14pt; font-weight: bold; color: #2980b9; display: block; margin-bottom: 10px;" id="ast-welcome">سلام قهرمان!</span>
                 <p style="font-size: 11pt; color: #333; margin: 0;">
-                    بازی قبلی‌ات با موفقیت تمام شده بود، اما به خاطر قطع شدن اینترنت، ستاره‌ی طلایی‌ات به دفتر کلاسی معلم نرسیده بود. 
-                    اصلاً نگران نباش! نیازی به بازی دوباره نیست. دکمه زیر را بزن تا ستاره‌ات ثبت بشه و کارنامه‌ات رو ببینی. 😊
+                    بازی قبلی‌ات با موفقیت تموم شده بود، اما به خاطر قطع‌شدن اینترنت، ستاره‌ی طلایی‌ات به دفتر کلاسیِ معلم نرسید. 
+                    اصلاً نگران نباش! نیازی نیست دوباره بازی کنی؛ فقط دکمه‌ی زیر رو بزن تا ستاره‌ات ثبت بشه و کارنامه‌ی قشنگت رو ببینی. 😊
                 </p>
             </div>
             <div style="display: flex; flex-direction: column; gap: 10px; background: #fff; border: 1px solid #3498db; border-radius: 10px; padding: 15px; margin-bottom: 25px; text-align: right; direction: rtl; font-size:12pt; width: 100%;">
                 <div style="display:flex; justify-content:space-between; align-items:center;"><span>👤 نام دانش‌آموز:</span><span id="ast-name" style="font-weight:bold; color:#3498db;">---</span></div>
-                <div style="display:flex; justify-content:space-between; align-items:center;"><span>⭐ ستاره‌های ثبت‌شده قبلی:</span><span id="ast-stars" style="font-weight:bold; color:#f39c12;">۰ ⭐</span></div>
-                <div style="display:flex; justify-content:space-between; align-items:center;"><span>🎯 ستاره هدف تکلیف:</span><span id="ast-req-stars" style="font-weight:bold; color:#27ae60;">۰ ⭐</span></div>
+                <div style="display:flex; justify-content:space-between; align-items:center;"><span>⭐ ستاره‌های ثبت‌شده‌ی قبلی:</span><span id="ast-stars" style="font-weight:bold; color:#f39c12;">۰ ⭐</span></div>
+                <div style="display:flex; justify-content:space-between; align-items:center;"><span>🎯 ستاره‌ی هدف تکلیف:</span><span id="ast-req-stars" style="font-weight:bold; color:#27ae60;">۰ ⭐</span></div>
             </div>
-            <button style="width: 100%; height: 50px; background: #27ae60; color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size:13pt; font-family: inherit;" onclick="submitAssistantStar()">🌟 ثبت ستاره‌ی طلایی من و دریافت کارنامه</button>
+            <button style="width: 100%; height: 50px; background: #27ae60; color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size:13pt; font-family: inherit;" onclick="submitAssistantStar()">🌟 ثبت ستاره‌ی طلایی من و دیدن کارنامه</button>
           </div>
         </div>
 
         <div id="screen-game" class="screen">
             <div class="game-header">
-                مرحله <span id="lvl-stage">۱</span> - بخش <span id="lvl-part">۱</span>
+                مرحله‌ی <span id="lvl-stage">۱</span> - بخش <span id="lvl-part">۱</span>
             </div>
 
-            <p id="question-text" class="hint-text">متن سوال</p>
+            <p id="question-text" class="hint-text">متن سؤال</p>
 
             <div id="explanation-box" class="explanation-box"></div>
 
@@ -633,7 +637,7 @@
                     </div>
 
                     <div id="shape1" class="shape-bar"></div>
-                    <div id="drag-msg" class="drag-msg">⬅️ شکل آبی را بکشید و روی قرمز (یا زیر آن) بگذارید</div>
+                    <div id="drag-msg" class="drag-msg">⬅️ شکل آبی رو بکش و روی قرمز (یا زیر اون) بذار.</div>
                 </div>
 
                 <div class="comparison-area">
@@ -655,7 +659,7 @@
 
             <div id="val-msg" class="validation-msg"></div>
 
-            <button id="btn-check-type3" style="display:none; background:#e67e22; width:auto; font-size:1rem; padding:10px 20px; margin-bottom:10px;" onclick="checkType3Inputs()">تایید کسر مساوی</button>
+            <button id="btn-check-type3" style="display:none; background:#e67e22; width:auto; font-size:1rem; padding:10px 20px; margin-bottom:10px;" onclick="checkType3Inputs()">تأیید کسر مساوی</button>
 
             <div class="controls" id="comparison-controls">
                 <button class="btn-compare" onclick="submitAnswer('>')">&gt;</button>
@@ -665,8 +669,8 @@
 
             <div class="action-buttons">
                 <button class="btn-help" id="btn-help" onclick="activateHelp()">💡 راهنما و شکل</button>
-                <button class="btn-next" id="btn-next" onclick="goToNextLevel()">✅ آفرین! مرحله بعد</button>
-                <button class="btn-retry" id="btn-retry" onclick="reloadLevel()">🔄 سوال جدید (تلاش مجدد)</button>
+                <button class="btn-next" id="btn-next" onclick="goToNextLevel()">✅ آفرین! مرحله‌ی بعد</button>
+                <button class="btn-retry" id="btn-retry" onclick="reloadLevel()">🔄 سؤال جدید (تلاش دوباره)</button>
             </div>
 
         </div>
@@ -678,36 +682,36 @@
                 <div id="portal-progress-bar" style="background:linear-gradient(90deg, #ff007f, #aa00ff, #00b0ff); width:0%; height:100%; transition:width 0.2s;"></div>
             </div>
             <p id="portal-submit-status-text" style="font-size:12pt; color:#555; font-weight:bold; line-height:1.6; direction:rtl;"></p>
-            <button id="portal-retry-submit-btn" class="btn-start-new" style="display:none; margin:15px auto 0; background:#e74c3c; color: white; padding: 10px 20px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer;" onclick="retrySubmission()">🔄 تلاش مجدد برای ارسال</button>
+            <button id="portal-retry-submit-btn" class="btn-start-new" style="display:none; margin:15px auto 0; background:#e74c3c; color: white; padding: 10px 20px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer;" onclick="retrySubmission()">🔄 تلاش دوباره برای ارسال</button>
           </div>
         </div>
 
         <div id="screen-report" class="screen">
-            <h2>کارنامه عملکرد</h2>
-            <h3 class="report-header-text">دبستان معاد خرگوشی</h3>
+            <h2>کارنامه‌ی عملکرد 📊</h2>
+            <h3 class="report-header-text" id="rep-school">---</h3>
             
             <div class="report-box">
-                <p>نام: <b id="rep-name">-</b></p>
+                <p>👤 نام دانش‌آموز: <b id="rep-name">-</b></p>
                 
                 <div class="timestamp-box">
-                    📅 <span id="rep-date">-</span><br>
-                    ⏰ <span id="rep-time">-</span>
+                    📅 تاریخ: <span id="rep-date">-</span><br>
+                    ⏰ ساعت: <span id="rep-time">-</span>
                 </div>
 
                 <hr style="margin: 10px 0; opacity: 0.3;">
-                <p>تعداد دوره‌های کامل شده: <b id="rep-games">-</b></p> 
-                <p style="color:#27ae60; font-size:1.1rem; font-weight:bold; margin-bottom:5px;">مجموع کل ستاره‌ها: <b id="rep-stars">-</b> ⭐</p>
+                <p>🎮 تعداد دوره‌های کامل‌شده: <b id="rep-games">-</b> بار</p> 
+                <p style="color:#27ae60; font-size:1.1rem; font-weight:bold; margin-bottom:5px;">⭐ مجموع کل ستاره‌ها: <b id="rep-stars">-</b> ⭐</p>
             </div>
 
             <div id="portal-submit-badge" style="display:none; background:#ffe4e1; border:1px solid #3498db; color:#3498db; padding:15px; border-radius:12px; margin-bottom:12px; font-weight:bold; font-size:12.5pt; line-height:1.6; text-align:right; width: 100%;"></div>
 
             <div id="portal-goal-reached-badge" style="display:none; background:#e8f5e9; border:2px solid #27ae60; color:#1b5e20; padding:15px; border-radius:12px; margin-bottom:15px; font-weight:bold; font-size:12.5pt; line-height:1.6; direction:rtl; text-align:right; width: 100%;">
-                🎉 هوراااا قهرمان پرتلاش! هدف تکلیف رو کاملاً ترکوندی و همه‌ی ستاره‌های مورد نیاز رو گرفتی! تو فوق‌العاده‌ای! 🥇 حالا می‌تونی با خیال راحت به پرتال برگردی. خداقوت! ❤️
+                🎉 هورا قهرمان پرتلاش! گل کاشتی! همه‌ی ستاره‌های این تکلیف رو گرفتی و عالی درخشیدی! تو فوق‌العاده‌ای! 🥇 حالا می‌تونی با خیال راحت به پرتال کلاس برگردی. ❤️
             </div>
 
             <div id="portal-back-instruction" style="display:none; width: 100%;"></div>
             
-            <button id="btn-restart" style="background:#e74c3c; margin-bottom: 20px;" onclick="restartGame()">شروع مجدد کل بازی</button>
+            <button id="btn-restart" style="background:#e74c3c; margin-bottom: 20px;" onclick="restartGame()">شروع یه بازیِ جدید 🎮</button>
         </div>
     </div>
 
@@ -719,7 +723,7 @@
     document.addEventListener('contextmenu', event => event.preventDefault());
 
     let state = {
-        user: { name: '', totalGames: 0, totalStars: 0, currentScreen: 'register' },
+        user: { name: '', school: '', totalGames: 0, totalStars: 0, currentScreen: 'register' },
         level: { index: 0 },
         currentQ: { f1: null, f2: null, type: 1, multiplier: 1 },
         sessionStars: 0,
@@ -775,6 +779,7 @@
             try {
                 state = JSON.parse(saved);
                 if (typeof state.user.currentScreen === 'undefined') state.user.currentScreen = 'register';
+                if (typeof state.user.school === 'undefined') state.user.school = '';
             } catch(e){}
         }
     }
@@ -864,10 +869,10 @@
     }
 
     function setQuestionText(type) {
-        if(type === 1) return "مخرج‌ها برابرند. کدام کسر بزرگتر است؟";
-        if(type === 2) return "صورت‌ها برابرند. کدام کسر بزرگتر است？";
-        if(type === 3) return "ابتدا کسر مساوی را بنویسید، سپس مقایسه کنید.";
-        return "متن سوال";
+        if(type === 1) return "مخرج‌ها برابرند؛ کدوم کسر بزرگ‌تره؟";
+        if(type === 2) return "صورت‌ها برابرند؛ کدوم کسر بزرگ‌تره؟";
+        if(type === 3) return "اول کسر مساوی رو بنویس، بعد مقایسه کن.";
+        return "متن سؤال";
     }
 
     function initLevel(generateNew) {
@@ -1075,11 +1080,11 @@
         } else {
             let errorText = '';
             if (!dOk) {
-                errorText = `مخرج اشتباه است. باید ${toPersianNum(state.currentQ.f2.d)} باشد.`;
+                errorText = `مخرج اشتباهه! باید ${toPersianNum(state.currentQ.f2.d)} باشه.`;
             }
             if (!nOk) {
                 if(errorText) errorText += '<br>';
-                errorText += `صورت کسر اشتباه است. دقت کن!`;
+                errorText += `صورت کسر اشتباهه؛ دقت کن!`;
             }
             
             msg.innerHTML = errorText;
@@ -1107,7 +1112,7 @@
             document.getElementById('sign-box').style.background = '#f2d7d5';
             
             const msg = document.getElementById('val-msg');
-            msg.innerText = 'علامت اشتباه بود. دکمه «سوال جدید» را بزن.';
+            msg.innerText = 'علامت اشتباه بود! دکمه‌ی «سؤال جدید» رو بزن.';
             msg.style.display = 'block';
 
             document.getElementById('comparison-controls').style.display = 'none';
@@ -1174,15 +1179,15 @@
         const explanationBox = document.getElementById('explanation-box');
         let explanationText = "";
         
-        if (type === 1) explanationText = "💡 نکته: چون مخرج‌ها برابر است، کسری بزرگ‌تر است که صورتش بیشتر باشد.";
-        else if (type === 2) explanationText = "💡 نکته: چون صورت‌ها برابر است، کسری بزرگ‌تر است که مخرجش کمتر باشد.";
-        else if (type === 3) explanationText = "💡 نکته: مخرج‌ها را یکی کردیم. حالا کسری بزرگ‌تر است که صورتش بیشتر باشد.";
+        if (type === 1) explanationText = "💡 نکته: وقتی مخرج‌ها برابره، کسری بزرگ‌تره که صورتش بیشتر باشه.";
+        else if (type === 2) explanationText = "💡 نکته: وقتی صورت‌ها برابره، کسری بزرگ‌تره که مخرجش کمتر باشه.";
+        else if (type === 3) explanationText = "💡 نکته: مخرج‌ها رو یکی کردیم؛ حالا کسری بزرگ‌تره که صورتش بیشتر باشه.";
         
         explanationBox.innerText = explanationText;
         explanationBox.style.display = 'block';
 
         const btn = document.getElementById('btn-help');
-        btn.innerText = '🔄 سوال جدید (بدون امتیاز)';
+        btn.innerText = '🔄 سؤال جدید (بدون امتیاز)';
         btn.style.background = '#e74c3c';
         btn.onclick = reloadLevel; 
     }
@@ -1287,8 +1292,10 @@
     function renderReport(goalReached, currentStars, pDate, pTime) {
         const stars = Portal.isPortalMode ? currentStars : state.user.totalStars;
         const games = Portal.isPortalMode ? state.user.totalGames : state.user.totalGames;
+        const finalSchool = state.user.school || (document.getElementById('portal-school-title') && document.getElementById('portal-school-title').textContent.trim() !== '---' ? document.getElementById('portal-school-title').textContent.trim() : '---');
 
-        document.getElementById('rep-name').innerText = state.user.name;
+        document.getElementById('rep-school').innerText = finalSchool;
+        document.getElementById('rep-name').innerText = state.user.name || '---';
         document.getElementById('rep-games').innerText = toPersianNum(games);
         document.getElementById('rep-stars').innerText = toPersianNum(stars);
         document.getElementById('rep-date').innerText = pDate;
@@ -1309,19 +1316,19 @@
                 btnRestart.style.display = 'none';
                 backInstruction.innerHTML = `
                     <div style="background:#e8f5e9; border:1px solid #2e7d32; color:#1b5e20; padding:15px; border-radius:12px; margin-top:10px; font-weight:bold; font-size:12pt; line-height:1.6; text-align:center;">
-                        📱 آفرین! تکلیف با موفقیت تکمیل شد.<br>
-                        حالا با زدن <b>دکمه بازگشت (Back) گوشی</b> به پرتال کلاس برگرد.
+                        📱 آفرین! تکلیفت با موفقیت تموم شد.<br>
+                        حالا با زدن <b>دکمه‌ی بازگشت (Back) گوشی</b> به پرتال کلاس برگرد.
                     </div>
                 `;
                 backInstruction.style.display = 'block';
             } else {
                 const remaining = Portal.requiredStars - stars;
-                submitBadge.innerHTML = `✨ آفرین دانش‌آموز زرنگم! تو <b>${toPersianNum(stars)}</b> ستاره از <b>${toPersianNum(Portal.requiredStars)}</b> ستاره‌ی این تکلیف رو گرفتی! ⭐ فقط به <b>${toPersianNum(remaining)}</b> ستاره‌ی دیگه نیاز داری تا تیک تکلیف بخوره. بدو برو بعدی رو حل کن! 🏆`;
+                submitBadge.innerHTML = `✨ آفرین دانش‌آموز زرنگم! تو <b>${toPersianNum(stars)}</b> ستاره از <b>${toPersianNum(Portal.requiredStars)}</b> ستاره‌ی این تکلیف رو گرفتی! ⭐ فقط به <b>${toPersianNum(remaining)}</b> ستاره‌ی دیگه نیاز داری تا تکلیفت کامل بشه. بدو برو بعدی رو هم حل کن! 🏆`;
                 submitBadge.style.display = 'block';
                 btnRestart.style.display = 'block';
                 backInstruction.innerHTML = `
                     <div style="background:#fff3e0; border:1px solid #ffe082; color:#e65100; padding:12px; border-radius:12px; margin-top:10px; font-size:11.5pt; line-height:1.6; text-align:center;">
-                        💡 اگر می‌خواهی بعداً بازی کنی، با زدن <b>دکمه بازگشت (Back) گوشی</b> به پرتال برگرد.
+                        💡 اگه می‌خوای ادامه‌ی بازی رو بعداً انجام بدی، با زدن <b>دکمه‌ی بازگشت (Back) گوشی</b> به پرتال برگرد.
                     </div>
                 `;
                 backInstruction.style.display = 'block';
@@ -1383,6 +1390,7 @@
                     state = {
                         user: {
                             name: data.name,
+                            school: '',
                             totalGames: data.plays,
                             totalStars: data.stars,
                             currentScreen: 'register'
@@ -1393,6 +1401,11 @@
                         helpUsed: false,
                         gameFinished: false
                     };
+                }
+
+                const schoolElCandidate = document.getElementById('portal-school-title');
+                if (schoolElCandidate && schoolElCandidate.textContent && schoolElCandidate.textContent.trim() !== '---' && schoolElCandidate.textContent.trim() !== '') {
+                    state.user.school = schoolElCandidate.textContent.trim();
                 }
                 
                 state.user.name = data.name || Portal.studentName || state.user.name || "دانش‌آموز";
@@ -1410,10 +1423,10 @@
                 const activeState = checkSavedUnfinishedState();
                 const startBtn = document.getElementById('startGameBtn');
                 if (activeState) {
-                    startBtn.textContent = 'ادامه بازی (باقیمانده) 🔄';
+                    startBtn.textContent = 'ادامه‌ی بازی (باقی‌مونده) 🔄';
                     startBtn.style.backgroundColor = '#ff9800';
                 } else {
-                    startBtn.textContent = 'شروع بازی تکلیف 🎮';
+                    startBtn.textContent = 'شروع بازیِ تکلیف 🎮';
                     startBtn.style.backgroundColor = '#27ae60';
                 }
 
@@ -1450,8 +1463,8 @@
                 showScreen('screen-register');
                 document.getElementById('portal-welcome-section').style.display = 'none';
                 document.getElementById('startGameBtn').style.display = 'none';
-                document.getElementById('portal-error-title').textContent = 'لینک ورود نامعتبر است';
-                document.getElementById('portal-error-desc').textContent = 'جهت انجام این تکلیف، حتماً باید از طریق پنل مدرسه و با لینک اختصاصی خود وارد شوی.';
+                document.getElementById('portal-error-title').textContent = 'لینک ورود درست نیست!';
+                document.getElementById('portal-error-desc').textContent = 'برای انجام این تکلیف، باید حتماً از داخل پرتال مدرسه‌ی خودت و با لینک اختصاصی‌ات وارد بشی.';
                 document.getElementById('portal-retry-auth-btn').style.display = 'none';
                 document.getElementById('portal-error-section').style.display = 'block';
             }
